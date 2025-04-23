@@ -7,13 +7,13 @@ import java.io.File;
  * @author Fran Perez
  * @version 1.1.0
  */
-public enum Routes {
-
+public enum Routes
+{
     APPIMAGES("images", null, null, null, null, null, null, null, null),
-    FILE ("File", "Photos", "dataFile.txt", null, null, null, null, null, null),
-    FILES ("FileSer", null, "dataFile.ser", null, null, null, null, null, null ),
+    FILE("File", "Photos", "dataFile.txt", null, null, null, null, null, null),
+    FILES("FileSer", null, "dataFile.ser", null, null, null, null, null, null),
     DB("SQL_DataBase", "Photos", null, "jdbc:mysql://localhost:3306", "?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true", "root", "", "people", "person"),
-    DBO("JPA_DataBase", null, null, "objectdb://localhost/people.odb;user=admin;password=admin", null, null, null, null, null);
+    DBO("JPA_DataBase", null, null, "objectdb://bd/people.odb;user=admin;password=admin", null, null, null, null, null);
 
     private final String folderPath;
     private final String folderPhotos;
@@ -24,11 +24,11 @@ public enum Routes {
     private final String dbServerPassword;
     private final String dbServerDB;
     private final String dbServerTABLE;
-    
-    
-    private Routes (String folderPath, String folderPhotos, String dataFile,
+
+    private Routes(String folderPath, String folderPhotos, String dataFile,
             String dbServerAddress, String dbServerComOpt, String dbServerUser,
-            String dbServerPassword, String dbServerDB, String dbServerTABLE){
+            String dbServerPassword, String dbServerDB, String dbServerTABLE)
+    {
         String userDir = System.getProperty("user.dir");
         this.folderPath = userDir + File.separator + folderPath;
         this.folderPhotos = this.folderPath + File.separator + folderPhotos;
@@ -41,44 +41,48 @@ public enum Routes {
         this.dbServerTABLE = dbServerTABLE;
     }
 
-    public String getFolderPath() {
+    public String getFolderPath()
+    {
         return folderPath;
     }
 
-    public String getFolderPhotos() {
+    public String getFolderPhotos()
+    {
         return folderPhotos;
     }
 
-    public String getDataFile() {
+    public String getDataFile()
+    {
         return dataFile;
     }
 
-    public String getDbServerAddress() {
+    public String getDbServerAddress()
+    {
         return dbServerAddress;
     }
 
-    public String getDbServerComOpt() {
+    public String getDbServerComOpt()
+    {
         return dbServerComOpt;
     }
 
-    public String getDbServerUser() {
+    public String getDbServerUser()
+    {
         return dbServerUser;
     }
 
-    public String getDbServerPassword() {
+    public String getDbServerPassword()
+    {
         return dbServerPassword;
     }
 
-    public String getDbServerDB() {
+    public String getDbServerDB()
+    {
         return dbServerDB;
     }
 
-    public String getDbServerTABLE() {
+    public String getDbServerTABLE()
+    {
         return dbServerTABLE;
     }
-    
-    
-    
-    
-    
 }
