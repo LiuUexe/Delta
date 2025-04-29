@@ -1,5 +1,12 @@
 package utils;
 
+/**
+ * Constants class to prevent using hardcoded Strings 
+ * in the handleDataStorageSelection() method on ControllerImplementation.java
+ * 
+ * @author Marc
+ */
+
 public class Constants
 {
     public static final String ARRAY_LIST = "ArrayList";
