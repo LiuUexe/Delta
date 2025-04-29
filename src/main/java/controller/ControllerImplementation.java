@@ -154,17 +154,17 @@ public class ControllerImplementation implements IController, ActionListener
         dSS.dispose();
         switch (daoSelected)
         {
-            case "ArrayList": dao = new DAOArrayList();
+            case Constants.ARRAY_LIST: dao = new DAOArrayList();
                 break;
-            case "HashMap": dao = new DAOHashMap();
+            case Constants.HASH_MAP: dao = new DAOHashMap();
                 break;
-            case "File": setupFileStorage();
+            case Constants.FILE: setupFileStorage();
                 break;
-            case "File (Serialization)": setupFileSerialization();
+            case Constants.FILE_SERIALIZATION: setupFileSerialization();
                 break;
-            case "SQL - Database": setupSQLDatabase();
+            case Constants.SQL_DATABASE: setupSQLDatabase();
                 break;
-            case "JPA - Database": setupJPADatabase();
+            case Constants.JPA_DATABASE: setupJPADatabase();
                 break;
         }
         setupMenu();
