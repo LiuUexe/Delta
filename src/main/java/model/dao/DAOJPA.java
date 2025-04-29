@@ -24,11 +24,14 @@ import javax.swing.ImageIcon;
  * @author Francesc Perez
  * @version 1.1.0
  */
-public class DAOJPA implements IDAO {
+
+public class DAOJPA implements IDAO
+{
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Routes.DBO.getDbServerAddress());
 
-    private byte[] imageIconToBytes(ImageIcon icon) {
+    private byte[] imageIconToBytes(ImageIcon icon)
+    {
         Image image = icon.getImage();
         BufferedImage bufferedImage = new BufferedImage(
                 image.getWidth(null),
@@ -37,38 +40,51 @@ public class DAOJPA implements IDAO {
         );
         bufferedImage.getGraphics().drawImage(image, 0, 0, null);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
+        try
+        {
             ImageIO.write(bufferedImage, "png", baos);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             return null;
         }
         return baos.toByteArray();
     }
 
-    private ImageIcon bytesToImageIcon(byte[] imageBytes) {
+    private ImageIcon bytesToImageIcon(byte[] imageBytes)
+    {
         ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
         BufferedImage bufferedImage = null;
-        try {
+        try
+        {
             bufferedImage = ImageIO.read(bais);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             return null;
         }
-        if (bufferedImage != null) {
+        if (bufferedImage != null)
+        {
             return new ImageIcon(bufferedImage);
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
 
     @Override
-    public Person read(Person p) throws Exception {
+    public Person read(Person p) throws Exception
+    {
         Person personToReturn = null;
         EntityManager em = emf.createEntityManager();
         String query = "SELECT p FROM Person p WHERE p.nif = :value";
         List<Person> people = em.createQuery(query, Person.class).setParameter("value", p.getNif()).getResultList();
-        if (!people.isEmpty()) {
+        if (!people.isEmpty())
+        {
             personToReturn = people.get(0);
-            if (personToReturn.getPhotoOnlyJPA() != null) {
+            if (personToReturn.getPhotoOnlyJPA() != null)
+            {
                 personToReturn.setPhoto(bytesToImageIcon(personToReturn.getPhotoOnlyJPA()));
             }
         }
@@ -77,12 +93,15 @@ public class DAOJPA implements IDAO {
     }
 
     @Override
-    public ArrayList<Person> readAll() throws Exception {
+    public ArrayList<Person> readAll() throws Exception
+    {
         EntityManager em = emf.createEntityManager();
         String query = "SELECT p FROM Person p";
         List<Person> people = em.createQuery(query, Person.class).getResultList();
-        for (Person p : people) {
-            if (p.getPhotoOnlyJPA() != null) {
+        for (Person p : people)
+        {
+            if (p.getPhotoOnlyJPA() != null)
+            {
                 p.setPhoto(bytesToImageIcon(p.getPhotoOnlyJPA()));
             }
         }
@@ -91,9 +110,11 @@ public class DAOJPA implements IDAO {
     }
 
     @Override
-    public void insert(Person p) throws Exception {
+    public void insert(Person p) throws Exception
+    {
         EntityManager em = emf.createEntityManager();
-        if (p.getPhoto() != null) {
+        if (p.getPhoto() != null)
+        {
             p.setPhotoOnlyJPA(imageIconToBytes(p.getPhoto()));
         }
         em.getTransaction().begin();
@@ -103,45 +124,54 @@ public class DAOJPA implements IDAO {
     }
 
     @Override
-    public void update(Person p) throws Exception {
+    public void update(Person p) throws Exception
+    {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Person pC = em.find(Person.class, p.getNif());
-        if (pC != null) {
+        if (pC != null)
+        {
             pC.setName(p.getName());
             pC.setDateOfBirth(p.getDateOfBirth());
-            if(p.getPhoto() != null)
+            if (p.getPhoto() != null)
+            {
                 pC.setPhotoOnlyJPA(imageIconToBytes(p.getPhoto()));
+            }
             else
+            {
                 pC.setPhotoOnlyJPA(null);
+            }
             em.getTransaction().commit();
         }
         em.close();
     }
 
     @Override
-    public void delete(Person p) throws Exception {
+    public void delete(Person p) throws Exception
+    {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p WHERE nif=: nifP", Person.class);
         query.setParameter("nifP", p.getNif());
         List<Person> personas = query.getResultList();
         em.getTransaction().begin();
-        for (Person pR : personas) {
+        for (Person pR : personas)
+        {
             em.remove(pR);
         }
         em.getTransaction().commit();
     }
 
     @Override
-    public void deleteAll() throws Exception {
+    public void deleteAll() throws Exception
+    {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
         List<Person> personas = query.getResultList();
         em.getTransaction().begin();
-        for (Person pR : personas) {
+        for (Person pR : personas)
+        {
             em.remove(pR);
         }
         em.getTransaction().commit();
     }
-
 }
