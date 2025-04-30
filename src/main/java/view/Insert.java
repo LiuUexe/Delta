@@ -1,6 +1,7 @@
 //test
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
@@ -20,12 +21,16 @@ import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
 /**
- * Interface used to register a person. It is mandatory to enter at least the 
+ * Interface used to register a person. It is mandatory to enter at least the
  * NIF and the name.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
 public class Insert extends javax.swing.JDialog {
+
+    private final String PLACEHOLDER_NIF = "Enter NIF number, letter is calculated (e.g., 12345678)";
+    private final String PLACEHOLDER_NAME = "Enter full name";
 
     public Insert(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,6 +38,14 @@ public class Insert extends javax.swing.JDialog {
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
+
+        nif.setText(PLACEHOLDER_NIF);
+        name.setText(PLACEHOLDER_NAME);
+        nif.setForeground(Color.gray);
+        name.setForeground(Color.gray);
+
+        nif.setFocusable(false);
+        name.setFocusable(false);
     }
 
     public JButton getReset() {
@@ -66,8 +79,7 @@ public class Insert extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         insert = new javax.swing.JButton();
@@ -91,10 +103,8 @@ public class Insert extends javax.swing.JDialog {
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        insert.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertActionPerformed(evt);
             }
         });
@@ -122,14 +132,27 @@ public class Insert extends javax.swing.JDialog {
         name.setMaximumSize(new java.awt.Dimension(400, 22));
         name.setMinimumSize(new java.awt.Dimension(400, 22));
         name.setPreferredSize(new java.awt.Dimension(400, 22));
-        name.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nameFocusLost(evt);
+            }
+        });
+        name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nameMouseEntered(evt);
+            }
+        });
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nameKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 nameKeyTyped(evt);
             }
         });
@@ -148,10 +171,8 @@ public class Insert extends javax.swing.JDialog {
         reset.setMaximumSize(new java.awt.Dimension(187, 33));
         reset.setMinimumSize(new java.awt.Dimension(187, 33));
         reset.setPreferredSize(new java.awt.Dimension(187, 33));
-        reset.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
             }
         });
@@ -171,10 +192,8 @@ public class Insert extends javax.swing.JDialog {
         photo.setMaximumSize(new java.awt.Dimension(150, 135));
         photo.setMinimumSize(new java.awt.Dimension(150, 135));
         photo.setPreferredSize(new java.awt.Dimension(150, 135));
-        photo.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        photo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 photoMouseClicked(evt);
             }
         });
@@ -203,25 +222,32 @@ public class Insert extends javax.swing.JDialog {
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        nif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nifFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nifFocusLost(evt);
+            }
+        });
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nifMouseEntered(evt);
+            }
+        });
+        nif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nifActionPerformed(evt);
             }
         });
-        nif.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
+        nif.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 nifKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 nifKeyTyped(evt);
             }
         });
@@ -262,10 +288,8 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
-        dateOfBirth.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        dateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateOfBirthActionPerformed(evt);
             }
         });
@@ -291,8 +315,8 @@ public class Insert extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
-        name.setText("");
+        nif.setText(PLACEHOLDER_NIF);
+        name.setText(PLACEHOLDER_NAME);
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -341,12 +365,7 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
-        if (nif.getText().length() == 8) {
-            evt.consume();
-            nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);
-            showInsert();
-        }
+
     }//GEN-LAST:event_nifKeyPressed
 
     private void nifActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nifActionPerformed
@@ -363,6 +382,46 @@ public class Insert extends javax.swing.JDialog {
     {//GEN-HEADEREND:event_insertActionPerformed
         JOptionPane.showMessageDialog(null, "The person was successfully inserted.", "Insert - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertActionPerformed
+
+    private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
+        if (nif.getText().equals(PLACEHOLDER_NIF)) {
+            nif.setText("");
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusGained
+
+    private void nifFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusLost
+        if (nif.getText().equals("")) {
+            nif.setText(PLACEHOLDER_NIF);
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusLost
+
+    private void nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusGained
+        if (name.getText().equals(PLACEHOLDER_NAME)) {
+            name.setText("");
+            name.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nameFocusGained
+
+    private void nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusLost
+        if (name.getText().equals("")) {
+            name.setText(PLACEHOLDER_NAME);
+            name.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nameFocusLost
+
+    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
+
+    }//GEN-LAST:event_nameKeyPressed
+
+    private void nifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseEntered
+        nif.setFocusable(true);
+    }//GEN-LAST:event_nifMouseEntered
+
+    private void nameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseEntered
+        name.setFocusable(true);
+    }//GEN-LAST:event_nameMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
