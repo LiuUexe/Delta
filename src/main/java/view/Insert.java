@@ -108,6 +108,13 @@ public class Insert extends javax.swing.JDialog {
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
+        insert.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                insertActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -221,6 +228,7 @@ public class Insert extends javax.swing.JDialog {
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+
         nif.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 nifFocusGained(evt);
@@ -236,6 +244,18 @@ public class Insert extends javax.swing.JDialog {
         });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
+        nif.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                nifActionPerformed(evt);
+            }
+        });
+        nif.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+
                 nifKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -282,6 +302,13 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
+        dateOfBirth.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                dateOfBirthActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -399,6 +426,22 @@ public class Insert extends javax.swing.JDialog {
     private void nameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMousePressed
         name.setFocusable(true);
     }//GEN-LAST:event_nameMousePressed
+    
+    private void nifActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nifActionPerformed
+    {//GEN-HEADEREND:event_nifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nifActionPerformed
+
+    private void dateOfBirthActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dateOfBirthActionPerformed
+    {//GEN-HEADEREND:event_dateOfBirthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateOfBirthActionPerformed
+          
+     private void insertActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_insertActionPerformed
+    {//GEN-HEADEREND:event_insertActionPerformed
+        JOptionPane.showMessageDialog(null, "The person was successfully inserted.", "Insert - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_insertActionPerformed
+          
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
