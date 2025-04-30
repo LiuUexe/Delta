@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isNumber;
 
@@ -15,13 +17,17 @@ import javax.swing.JTextField;
 
 /**
  * Interface used to delete a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
 public class Delete extends javax.swing.JDialog {
 
+    private final String PLACEHOLDER_NIF = "Enter NIF number, letter is calculated (e.g., 12345678)";
+
     /**
      * Creates new form StudentDelete
+     *
      * @param parent
      * @param modal
      */
@@ -29,6 +35,28 @@ public class Delete extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+
+        addPlaceHolderStyle(nif);
+        nif.setFocusable(false);
+
+        nif.setText(PLACEHOLDER_NIF);
+        nif.setForeground(Color.gray);
+        nif.setFocusable(false);
+
+    }
+
+    public void addPlaceHolderStyle(JTextField textField) {
+        Font font = textField.getFont();
+        font = font.deriveFont(Font.ITALIC);
+        textField.setFont(font);
+        textField.setForeground(Color.gray); // Font color
+    }
+
+    public void removePlaceHolder(JTextField textField) {
+        Font font = textField.getFont();
+        font = font.deriveFont(Font.PLAIN | Font.BOLD);
+        textField.setFont(font);
+        textField.setForeground(Color.black); // Font color
     }
 
     public JButton getDelete() {
@@ -42,7 +70,7 @@ public class Delete extends javax.swing.JDialog {
     public JButton getReset() {
         return reset;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,7 +107,6 @@ public class Delete extends javax.swing.JDialog {
 
         delete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         delete.setText("DELETE");
-        delete.setEnabled(false);
         delete.setMaximumSize(new java.awt.Dimension(187, 33));
         delete.setMinimumSize(new java.awt.Dimension(187, 33));
         delete.setPreferredSize(new java.awt.Dimension(187, 33));
@@ -91,9 +118,28 @@ public class Delete extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(delete, gridBagConstraints);
 
+        nif.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nifFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nifFocusLost(evt);
+            }
+        });
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nifMousePressed(evt);
+            }
+        });
+        nif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nifActionPerformed(evt);
+            }
+        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -155,7 +201,7 @@ public class Delete extends javax.swing.JDialog {
             delete.setEnabled(true);
         }
     }//GEN-LAST:event_nifKeyPressed
-   
+
     private void nifKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyReleased
         if (nif.getText().length() == 8) {
             nif.setText(calculateNifLetter(nif.getText()));
@@ -172,15 +218,36 @@ public class Delete extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyTyped
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        nif.setText("");
+        nif.setText(PLACEHOLDER_NIF);
         nif.setEditable(true);
         delete.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
 
+    private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
+        if (nif.getText().equals(PLACEHOLDER_NIF)) {
+            nif.setText("");
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusGained
+
+    private void nifFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusLost
+        if (nif.getText().equals("")) {
+            nif.setText(PLACEHOLDER_NIF);
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusLost
+
+    private void nifMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMousePressed
+        nif.setFocusable(true);
+    }//GEN-LAST:event_nifMousePressed
+
+    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nifActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;

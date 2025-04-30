@@ -1,9 +1,12 @@
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.dnd.DropTarget;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
@@ -19,12 +22,16 @@ import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
 /**
- * Interface used to register a person. It is mandatory to enter at least the 
+ * Interface used to register a person. It is mandatory to enter at least the
  * NIF and the name.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
 public class Insert extends javax.swing.JDialog {
+
+    private final String PLACEHOLDER_NIF = "Enter NIF number, letter is calculated (e.g., 12345678)";
+    private final String PLACEHOLDER_NAME = "Enter full name";
 
     public Insert(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -32,6 +39,15 @@ public class Insert extends javax.swing.JDialog {
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
+
+        nif.setText(PLACEHOLDER_NIF);
+        name.setText(PLACEHOLDER_NAME);
+        nif.setForeground(Color.gray);
+        name.setForeground(Color.gray);
+
+        nif.setFocusable(false);
+        name.setFocusable(false);
+
     }
 
     public JButton getReset() {
@@ -65,10 +81,10 @@ public class Insert extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jTextField1 = new javax.swing.JTextField();
         insert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
@@ -79,6 +95,8 @@ public class Insert extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
@@ -118,17 +136,28 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         name.setMaximumSize(new java.awt.Dimension(400, 22));
         name.setMinimumSize(new java.awt.Dimension(400, 22));
         name.setPreferredSize(new java.awt.Dimension(400, 22));
-        name.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nameFocusLost(evt);
+            }
+        });
+        name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nameMousePressed(evt);
+            }
+        });
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 nameKeyTyped(evt);
             }
         });
@@ -147,10 +176,8 @@ public class Insert extends javax.swing.JDialog {
         reset.setMaximumSize(new java.awt.Dimension(187, 33));
         reset.setMinimumSize(new java.awt.Dimension(187, 33));
         reset.setPreferredSize(new java.awt.Dimension(187, 33));
-        reset.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
             }
         });
@@ -170,10 +197,8 @@ public class Insert extends javax.swing.JDialog {
         photo.setMaximumSize(new java.awt.Dimension(150, 135));
         photo.setMinimumSize(new java.awt.Dimension(150, 135));
         photo.setPreferredSize(new java.awt.Dimension(150, 135));
-        photo.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        photo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 photoMouseClicked(evt);
             }
         });
@@ -199,9 +224,26 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel5, gridBagConstraints);
 
+        nif.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+
+        nif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nifFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nifFocusLost(evt);
+            }
+        });
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nifMouseEntered(evt);
+            }
+        });
+        nif.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
         nif.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -213,14 +255,13 @@ public class Insert extends javax.swing.JDialog {
         {
             public void keyPressed(java.awt.event.KeyEvent evt)
             {
+
                 nifKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 nifKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 nifKeyTyped(evt);
             }
         });
@@ -290,8 +331,10 @@ public class Insert extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
-        name.setText("");
+        nif.setText(PLACEHOLDER_NIF);
+        name.setText(PLACEHOLDER_NAME);
+        nif.setForeground(Color.gray);
+        name.setForeground(Color.gray);
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -348,6 +391,42 @@ public class Insert extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nifKeyPressed
 
+    private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
+        if (nif.getText().equals(PLACEHOLDER_NIF)) {
+            nif.setText("");
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusGained
+
+    private void nifFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusLost
+        if (nif.getText().equals("")) {
+            nif.setText(PLACEHOLDER_NIF);
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusLost
+
+    private void nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusGained
+        if (name.getText().equals(PLACEHOLDER_NAME)) {
+            name.setText("");
+            name.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nameFocusGained
+
+    private void nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusLost
+        if (name.getText().equals("")) {
+            name.setText(PLACEHOLDER_NAME);
+            name.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nameFocusLost
+
+    private void nifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseEntered
+        nif.setFocusable(true);
+    }//GEN-LAST:event_nifMouseEntered
+
+    private void nameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMousePressed
+        name.setFocusable(true);
+    }//GEN-LAST:event_nameMousePressed
+    
     private void nifActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nifActionPerformed
     {//GEN-HEADEREND:event_nifActionPerformed
         // TODO add your handling code here:
@@ -357,11 +436,12 @@ public class Insert extends javax.swing.JDialog {
     {//GEN-HEADEREND:event_dateOfBirthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dateOfBirthActionPerformed
-
-    private void insertActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_insertActionPerformed
+          
+     private void insertActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_insertActionPerformed
     {//GEN-HEADEREND:event_insertActionPerformed
         JOptionPane.showMessageDialog(null, "The person was successfully inserted.", "Insert - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_insertActionPerformed
+          
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
@@ -370,6 +450,7 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
     private javax.swing.JLabel photo;
