@@ -55,7 +55,8 @@ public class Menu extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         read = new javax.swing.JButton();
@@ -154,6 +155,13 @@ public class Menu extends javax.swing.JFrame {
         deleteAll.setMaximumSize(new java.awt.Dimension(120, 50));
         deleteAll.setMinimumSize(new java.awt.Dimension(120, 50));
         deleteAll.setPreferredSize(new java.awt.Dimension(120, 50));
+        deleteAll.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteAllActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -165,6 +173,11 @@ public class Menu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void deleteAllActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteAllActionPerformed
+    {//GEN-HEADEREND:event_deleteAllActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;

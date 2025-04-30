@@ -442,10 +442,7 @@ public class ControllerImplementation implements IController, ActionListener
 
     public void handleDeleteAll()
     {
-        Object[] options =
-        {
-            "Yes", "No"
-        };
+        Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
                 menu,
@@ -461,6 +458,7 @@ public class ControllerImplementation implements IController, ActionListener
         if (answer == 0)
         {
             deleteAll();
+            JOptionPane.showMessageDialog(null, "All persons have been deleted successfully!", "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

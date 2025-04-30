@@ -355,7 +355,7 @@ public class Update extends javax.swing.JDialog {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_updateActionPerformed
     {//GEN-HEADEREND:event_updateActionPerformed
-        JOptionPane.showMessageDialog(null, "Person updated successfully!", "Person Updated", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "The person was successfully updated.", "Update - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_updateActionPerformed
 
     /**
