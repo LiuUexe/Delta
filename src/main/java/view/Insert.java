@@ -1,3 +1,4 @@
+//test
 package view;
 
 import static utils.DataValidation.calculateNifLetter;
