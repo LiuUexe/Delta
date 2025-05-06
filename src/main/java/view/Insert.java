@@ -14,7 +14,6 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -47,16 +46,8 @@ public class Insert extends javax.swing.JDialog {
 
         nif.setFocusable(false);
         name.setFocusable(false);
-
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            try {
-                JButton datePickerButton = (JButton) ((JComponent) dateOfBirth).getComponent(1);
-                datePickerButton.setText("Select a date");
-                datePickerButton.setPreferredSize(null); // allow auto-resizing
-            } catch (Exception e) {
-                System.err.println("Failed to change date picker button text.");
-            }
-        });
+        
+        
     }
 
     public JButton getReset() {
@@ -342,13 +333,6 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth.getModel().setValue(null);
         insert.setEnabled(false);
 
-        try {
-            JButton datePickerButton = (JButton) ((JComponent) dateOfBirth).getComponent(1);
-            datePickerButton.setText("Select a date");
-            datePickerButton.setPreferredSize(null);
-        } catch (Exception e) {
-            System.err.println("Failed to change date picker button text.");
-        }
     }//GEN-LAST:event_resetActionPerformed
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
@@ -384,7 +368,12 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
-
+        if (nif.getText().length() == 8) {
+            evt.consume();
+            nif.setText(calculateNifLetter(nif.getText()));
+            nif.setEditable(false);
+            showInsert();
+        }
     }//GEN-LAST:event_nifKeyPressed
 
     private void nifActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nifActionPerformed
