@@ -1,4 +1,3 @@
-//test
 package controller;
 
 import model.entity.Person;
@@ -353,7 +352,6 @@ public class ControllerImplementation implements IController, ActionListener
         {
             if (delete != null)
             {
-
                 Person p = new Person(delete.getNif().getText());
                 delete(p);
                 delete.getReset().doClick();
