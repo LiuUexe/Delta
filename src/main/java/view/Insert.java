@@ -46,8 +46,7 @@ public class Insert extends javax.swing.JDialog {
 
         nif.setFocusable(false);
         name.setFocusable(false);
-        
-        
+
     }
 
     public JButton getReset() {

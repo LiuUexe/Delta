@@ -1,4 +1,3 @@
-//test
 package controller;
 
 import model.entity.Person;
@@ -333,13 +332,31 @@ public class ControllerImplementation implements IController, ActionListener
         delete.setVisible(true);
     }
 
+    //First checks if the user actually wants to delete the person, if the answer is yes, executes the prefabricated code to delete it
     public void handleDeletePerson()
     {
-        if (delete != null)
+        Object[] options = {"Yes", "No"};
+        
+        int answer = JOptionPane.showOptionDialog(
+                menu,
+                "Are you sure you want to delete this person?",
+                "Delete All - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
+
+        if (answer == 0)
         {
-            Person p = new Person(delete.getNif().getText());
-            delete(p);
-            delete.getReset().doClick();
+            if (delete != null)
+            {
+                Person p = new Person(delete.getNif().getText());
+                delete(p);
+                delete.getReset().doClick();
+            }
+            JOptionPane.showMessageDialog(null, "Person deleted successfully!", "Delete - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
