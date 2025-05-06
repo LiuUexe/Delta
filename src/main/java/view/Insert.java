@@ -46,6 +46,7 @@ public class Insert extends javax.swing.JDialog {
 
         nif.setFocusable(false);
         name.setFocusable(false);
+
     }
 
     public JButton getReset() {
@@ -330,6 +331,7 @@ public class Insert extends javax.swing.JDialog {
         //... but do not display it in the JDatePicker box
         dateOfBirth.getModel().setValue(null);
         insert.setEnabled(false);
+
     }//GEN-LAST:event_resetActionPerformed
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
@@ -365,7 +367,12 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
-
+        if (nif.getText().length() == 8) {
+            evt.consume();
+            nif.setText(calculateNifLetter(nif.getText()));
+            nif.setEditable(false);
+            showInsert();
+        }
     }//GEN-LAST:event_nifKeyPressed
 
     private void nifActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nifActionPerformed
