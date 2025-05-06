@@ -331,7 +331,7 @@ public class ControllerImplementation implements IController, ActionListener
         delete.getDelete().addActionListener(this);
         delete.setVisible(true);
     }
-    
+
     //First checks if the user actually wants to delete the person, if the answer is yes, executes the prefabricated code to delete it
     public void handleDeletePerson()
     {
