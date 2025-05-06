@@ -57,7 +57,6 @@ public class Insert extends javax.swing.JDialog {
                 System.err.println("Please Try Again.");
             }
         });
-
     }
 
     public JButton getReset() {
