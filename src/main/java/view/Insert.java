@@ -54,7 +54,7 @@ public class Insert extends javax.swing.JDialog {
                 datePickerButton.setText("Select a date");
                 datePickerButton.setPreferredSize(null);
             } catch (Exception e) {
-                System.err.println("Failed to change date picker button text.");
+                System.err.println("Please Try Again.");
             }
         });
 
