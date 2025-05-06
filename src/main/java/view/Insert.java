@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -46,8 +47,17 @@ public class Insert extends javax.swing.JDialog {
 
         nif.setFocusable(false);
         name.setFocusable(false);
-        
-        
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                JButton datePickerButton = (JButton) ((JComponent) dateOfBirth).getComponent(1);
+                datePickerButton.setText("Select a date");
+                datePickerButton.setPreferredSize(null);
+            } catch (Exception e) {
+                System.err.println("Failed to change date picker button text.");
+            }
+        });
+
     }
 
     public JButton getReset() {
