@@ -25,6 +25,8 @@ public class Delete extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
+    private Menu menu;
+    
     public Delete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -50,7 +52,8 @@ public class Delete extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
@@ -83,6 +86,13 @@ public class Delete extends javax.swing.JDialog {
         delete.setMaximumSize(new java.awt.Dimension(187, 33));
         delete.setMinimumSize(new java.awt.Dimension(187, 33));
         delete.setPreferredSize(new java.awt.Dimension(187, 33));
+        delete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -94,14 +104,18 @@ public class Delete extends javax.swing.JDialog {
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
+        nif.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
                 nifKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 nifKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
                 nifKeyTyped(evt);
             }
         });
@@ -131,8 +145,10 @@ public class Delete extends javax.swing.JDialog {
         reset.setMaximumSize(new java.awt.Dimension(187, 33));
         reset.setMinimumSize(new java.awt.Dimension(187, 33));
         reset.setPreferredSize(new java.awt.Dimension(187, 33));
-        reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        reset.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 resetActionPerformed(evt);
             }
         });
@@ -176,6 +192,11 @@ public class Delete extends javax.swing.JDialog {
         nif.setEditable(true);
         delete.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteActionPerformed
+    {//GEN-HEADEREND:event_deleteActionPerformed
+        //Nothing to do here, this is just a empty method that I cant delete
+    }//GEN-LAST:event_deleteActionPerformed
 
     /**
      * @param args the command line arguments
