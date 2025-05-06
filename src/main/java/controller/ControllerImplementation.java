@@ -356,7 +356,6 @@ public class ControllerImplementation implements IController, ActionListener
                 delete(p);
                 delete.getReset().doClick();
             }
-            JOptionPane.showMessageDialog(null, "Person deleted successfully!", "Delete - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -566,6 +565,7 @@ public class ControllerImplementation implements IController, ActionListener
             if (dao.read(p) != null)
             {
                 dao.delete(p);
+                JOptionPane.showMessageDialog(null, "Person deleted successfully!", "Delete - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
