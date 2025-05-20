@@ -34,7 +34,8 @@ public class ReadAll extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -46,25 +47,32 @@ public class ReadAll extends javax.swing.JDialog {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
-                "NIF", "Name", "Date of Birth", "Photo"
+            new String []
+            {
+                "NIF", "Name", "Phone Number", "Date of Birth", "Photo"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
