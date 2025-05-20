@@ -1,3 +1,4 @@
+
 package controller;
 
 import model.entity.Person;
@@ -42,18 +43,8 @@ import org.jdatepicker.DateModel;
 import utils.Constants;
 import view.Count;
 
-/**
- * This class starts the visual part of the application and programs and manages
- * all the events that it can receive from it. For each event received the
- * controller performs an action.
- *
- * @author Francesc Perez
- * @version 1.1.0
- */
 public class ControllerImplementation implements IController, ActionListener {
 
-    //Instance variables used so that both the visual and model parts can be 
-    //accessed from the Controller.
     private final DataStorageSelection dSS;
     private IDAO dao;
     private Menu menu;
@@ -64,33 +55,16 @@ public class ControllerImplementation implements IController, ActionListener {
     private ReadAll readAll;
     private Count count;
 
-    /**
-     * This constructor allows the controller to know which data storage option
-     * the user has chosen.Schedule an event to deploy when the user has made
-     * the selection.
-     *
-     * @param dSS
-     */
     public ControllerImplementation(DataStorageSelection dSS) {
         this.dSS = dSS;
         ((JButton) (dSS.getAccept()[0])).addActionListener(this);
     }
 
-    /**
-     * With this method, the application is started, asking the user for the
-     * chosen storage system.
-     */
     @Override
     public void start() {
         dSS.setVisible(true);
     }
 
-    /**
-     * This receives method handles the events of the visual part. Each event
-     * has an associated action.
-     *
-     * @param e The event generated in the visual part
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dSS.getAccept()[0]) {
@@ -126,24 +100,12 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case Constants.ARRAY_LIST:
-                dao = new DAOArrayList();
-                break;
-            case Constants.HASH_MAP:
-                dao = new DAOHashMap();
-                break;
-            case Constants.FILE:
-                setupFileStorage();
-                break;
-            case Constants.FILE_SERIALIZATION:
-                setupFileSerialization();
-                break;
-            case Constants.SQL_DATABASE:
-                setupSQLDatabase();
-                break;
-            case Constants.JPA_DATABASE:
-                setupJPADatabase();
-                break;
+            case Constants.ARRAY_LIST -> dao = new DAOArrayList();
+            case Constants.HASH_MAP -> dao = new DAOHashMap();
+            case Constants.FILE -> setupFileStorage();
+            case Constants.FILE_SERIALIZATION -> setupFileSerialization();
+            case Constants.SQL_DATABASE -> setupSQLDatabase();
+            case Constants.JPA_DATABASE -> setupJPADatabase();
         }
         setupMenu();
     }
@@ -191,7 +153,8 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
                         + "dateOfBirth DATE, "
-                        + "photo varchar(200) );");
+                        + "photo varchar(200), "
+                        + "phoneNumber varchar(20));");
                 stmt.close();
                 conn.close();
             }
@@ -241,9 +204,6 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
-
-            p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
-        }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
@@ -269,13 +229,6 @@ public class ControllerImplementation implements IController, ActionListener {
                 DateModel<Calendar> dateModel = (DateModel<Calendar>) read.getDateOfBirth().getModel();
                 dateModel.setValue(calendar);
             }
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(pNew.getDateOfBirth());
-                DateModel<Calendar> dateModel = (DateModel<Calendar>) read.getDateOfBirth().getModel();
-                dateModel.setValue(calendar);
-            }
-            //To avoid charging former images
             if (pNew.getPhoto() != null) {
                 pNew.getPhoto().getImage().flush();
                 read.getPhoto().setIcon(pNew.getPhoto());
@@ -286,27 +239,17 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-    public void handleDeleteAction() {
+    private void handleDeleteAction() {
         delete = new Delete(menu, true);
         delete.getDelete().addActionListener(this);
         delete.setVisible(true);
     }
 
-    //First checks if the user actually wants to delete the person, if the answer is yes, executes the prefabricated code to delete it
-    public void handleDeletePerson() {
+    private void handleDeletePerson() {
         Object[] options = {"Yes", "No"};
-
-        int answer = JOptionPane.showOptionDialog(
-                menu,
-                "Are you sure you want to delete this person?",
-                "Delete All - People v1.1.0",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options[1] // Default selection is "No"
-        );
-
+        int answer = JOptionPane.showOptionDialog(menu, "Are you sure you want to delete this person?",
+                "Delete All - People v1.1.0", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[1]);
         if (answer == 0) {
             if (delete != null) {
                 Person p = new Person(delete.getNif().getText());
@@ -316,14 +259,14 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-    public void handleUpdateAction() {
+    private void handleUpdateAction() {
         update = new Update(menu, true);
         update.getUpdate().addActionListener(this);
         update.getRead().addActionListener(this);
         update.setVisible(true);
     }
 
-    public void handleReadForUpdate() {
+    private void handleReadForUpdate() {
         if (update != null) {
             Person p = new Person(update.getNif().getText());
             Person pNew = read(p);
@@ -331,9 +274,9 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getNam().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
-                update.getUpdate().setEnabled(true);
                 update.getPhoneNumber().setEnabled(true);
-                
+                update.getUpdate().setEnabled(true);
+
                 update.getNam().setText(pNew.getName());
                 update.getPhoneNumber().setText(pNew.getPhoneNumber());
                 if (pNew.getDateOfBirth() != null) {
@@ -342,16 +285,9 @@ public class ControllerImplementation implements IController, ActionListener {
                     DateModel<Calendar> dateModel = (DateModel<Calendar>) update.getDateOfBirth().getModel();
                     dateModel.setValue(calendar);
                 }
-
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(pNew.getDateOfBirth());
-                    DateModel<Calendar> dateModel = (DateModel<Calendar>) update.getDateOfBirth().getModel();
-                    dateModel.setValue(calendar);
-                }
                 if (pNew.getPhoto() != null) {
                     pNew.getPhoto().getImage().flush();
                     update.getPhoto().setIcon(pNew.getPhoto());
-                    update.getUpdate().setEnabled(true);
                 }
             } else {
                 JOptionPane.showMessageDialog(update, p.getNif() + " doesn't exist.", update.getTitle(), JOptionPane.WARNING_MESSAGE);
@@ -360,26 +296,24 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-    public void handleUpdatePerson() {
+    private void handleUpdatePerson() {
         if (update != null) {
             String telefono = update.getPhoneNumber().getText();
-            if (telefono == null || telefono.isBlank()
-                || !telefono.matches("^\\+?[0-9 .()\\-]{7,20}$")) {
+            if (telefono == null || telefono.isBlank() || !telefono.matches("^\\+?[0-9 .()\\-]{7,20}$"))
+            {
                 JOptionPane.showMessageDialog(update,
-                    "Only digits, spaces, '+', '-', '.', and parentheses are allowed.\nExample: +34 912-34-56-78",
-                    update.getTitle(),
-                    JOptionPane.ERROR_MESSAGE);
+                        "Only digits, spaces, '+', '-', '.', and parentheses are allowed.\nExample: +34 912-34-56-78",
+                        update.getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             Person p = new Person(update.getNam().getText(), update.getNif().getText());
             p.setPhoneNumber(telefono);
 
-            if ((update.getDateOfBirth().getModel().getValue()) != null) {
+            if (update.getDateOfBirth().getModel().getValue() != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
-
-            if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
+            if (update.getPhoto().getIcon() != null) {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
 
@@ -389,8 +323,7 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-
-    public void handleReadAll() {
+    private void handleReadAll() {
         ArrayList<Person> s = readAll();
         if (s.isEmpty()) {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
@@ -401,49 +334,34 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.addRow(new Object[i]);
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
-                model.setValueAt(s.get(i).getNif(), i, 0);
-                model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getPhoneNumber(), i, 2);
-
                 if (s.get(i).getDateOfBirth() != null) {
                     model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
                 } else {
                     model.setValueAt("", i, 3);
                 }
-
                 if (s.get(i).getPhoto() != null) {
                     model.setValueAt("yes", i, 4);
                 } else {
                     model.setValueAt("no", i, 4);
-                }
-
                 }
             }
             readAll.setVisible(true);
         }
     }
 
-    public void handleDeleteAll() {
+    private void handleDeleteAll() {
         Object[] options = {"Yes", "No"};
-        //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
-        int answer = JOptionPane.showOptionDialog(
-                menu,
-                "Are you sure you want to delete all registered people?",
-                "Delete All - People v1.1.0",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options[1] // Default selection is "No"
-        );
-
+        int answer = JOptionPane.showOptionDialog(menu, "Are you sure you want to delete all registered people?",
+                "Delete All - People v1.1.0", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[1]);
         if (answer == 0) {
             deleteAll();
             JOptionPane.showMessageDialog(null, "All persons have been deleted successfully!", "Person Deleted All", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
-    public void handleCount() {
+    private void handleCount() {
         int c = count();
         count = new Count(menu, true);
         JLabel label = (JLabel) count.getLabel();
@@ -451,67 +369,28 @@ public class ControllerImplementation implements IController, ActionListener {
         count.setVisible(true);
     }
 
-    /**
-     * This function inserts the Person object with the requested NIF, if it
-     * doesn't exist. If there is any access problem with the storage device,
-     * the program stops.
-     *
-     * @param p Person to insert
-     */
     @Override
     public void insert(Person p) {
         try {
             if (dao.read(p) == null) {
                 dao.insert(p);
             } else {
-                throw new PersonException(p.getNif() + " is registered and can not "
-                        + "be INSERTED.");
+                throw new PersonException(p.getNif() + " is registered and can not be INSERTED.");
             }
         } catch (Exception ex) {
-            //Exceptions generated by file read/write access. If something goes 
-            // wrong the application closes.
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(insert, ex.getMessage() + ex.getClass() + " Closing application.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
-            if (ex instanceof PersonException) {
-                JOptionPane.showMessageDialog(insert, ex.getMessage(), insert.getTitle(), JOptionPane.WARNING_MESSAGE);
-            }
+            handleException(ex, insert);
         }
     }
 
-    /**
-     * This function updates the Person object with the requested NIF, if it
-     * doesn't exist. NIF can not be aupdated. If there is any access problem
-     * with the storage device, the program stops.
-     *
-     * @param p Person to update
-     */
     @Override
     public void update(Person p) {
         try {
             dao.update(p);
         } catch (Exception ex) {
-            //Exceptions generated by file read/write access. If something goes 
-            // wrong the application closes.
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(update, ex.getMessage() + ex.getClass() + " Closing application.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+            handleException(ex, update);
         }
     }
 
-    /**
-     * This function deletes the Person object with the requested NIF, if it
-     * exists. If there is any access problem with the storage device, the
-     * program stops.
-     *
-     * @param p Person to read
-     */
     @Override
     public void delete(Person p) {
         try {
@@ -519,97 +398,54 @@ public class ControllerImplementation implements IController, ActionListener {
                 dao.delete(p);
                 JOptionPane.showMessageDialog(null, "Person deleted successfully!", "Person Deleted", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                throw new PersonException(p.getNif() + " is not registered and can not "
-                        + "be DELETED");
+                throw new PersonException(p.getNif() + " is not registered and can not be DELETED");
             }
         } catch (Exception ex) {
-            //Exceptions generated by file, DDBB read/write access. If something  
-            //goes wrong the application closes.
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage() + ex.getClass() + " Closing application.", "Insert - People v1.1.0", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
-            if (ex instanceof PersonException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage(), "Delete - People v1.1.0", JOptionPane.WARNING_MESSAGE);
-            }
+            handleException(ex, read);
         }
     }
 
-    /**
-     * This function returns the Person object with the requested NIF, if it
-     * exists. Otherwise it returns null. If there is any access problem with
-     * the storage device, the program stops.
-     *
-     * @param p Person to read
-     * @return Person or null
-     */
     @Override
     public Person read(Person p) {
         try {
-            Person pTR = dao.read(p);
-            if (pTR != null) {
-                return pTR;
-            }
+            return dao.read(p);
         } catch (Exception ex) {
-
-            //Exceptions generated by file read access. If something goes wrong 
-            //reading the file, the application closes.
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage() + " Closing application.", read.getTitle(), JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+            handleException(ex, read);
+            return null;
         }
-        return null;
     }
 
-    /**
-     * This function returns the people registered. If there is any access
-     * problem with the storage device, the program stops.
-     *
-     * @return ArrayList
-     */
     @Override
     public ArrayList<Person> readAll() {
-        ArrayList<Person> people = new ArrayList<>();
         try {
-            people = dao.readAll();
+            return dao.readAll();
         } catch (Exception ex) {
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(readAll, ex.getMessage() + " Closing application.", readAll.getTitle(), JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+            handleException(ex, readAll);
+            return new ArrayList<>();
         }
-        return people;
     }
 
-    /**
-     * This function deletes all the people registered. If there is any access
-     * problem with the storage device, the program stops.
-     */
     @Override
     public void deleteAll() {
         try {
             dao.deleteAll();
         } catch (Exception ex) {
-            if (ex instanceof FileNotFoundException || ex instanceof IOException
-                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
-                    || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
-            }
+            handleException(ex, menu);
         }
     }
 
-
     public int count() {
-        ArrayList<Person> person = readAll();
-        return person.size();
+        return readAll().size();
     }
 
+    private void handleException(Exception ex, Object parent) {
+        if (ex instanceof FileNotFoundException || ex instanceof IOException ||
+            ex instanceof ParseException || ex instanceof ClassNotFoundException ||
+            ex instanceof SQLException || ex instanceof PersistenceException) {
+            JOptionPane.showMessageDialog(null, ex.getMessage() + " Closing application.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        } else if (ex instanceof PersonException) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
