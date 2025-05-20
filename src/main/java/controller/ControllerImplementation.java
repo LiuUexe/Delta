@@ -278,6 +278,10 @@ public class ControllerImplementation implements IController, ActionListener
     private void handleInsertPerson()
     {
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        if (insert.getPhoneNumber().getText() != null)
+        {
+            p.setPhoneNumber(insert.getPhoneNumber().getText());
+        }
         if (insert.getDateOfBirth().getModel().getValue() != null)
         {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
@@ -304,6 +308,7 @@ public class ControllerImplementation implements IController, ActionListener
         if (pNew != null)
         {
             read.getNam().setText(pNew.getName());
+            read.getPhoneNumber().setText(pNew.getPhoneNumber());
             if (pNew.getDateOfBirth() != null)
             {
                 Calendar calendar = Calendar.getInstance();
@@ -379,7 +384,11 @@ public class ControllerImplementation implements IController, ActionListener
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
+                update.getPhoneNumber().setEnabled(true);
+                
                 update.getNam().setText(pNew.getName());
+                update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                
                 if (pNew.getDateOfBirth() != null)
                 {
                     Calendar calendar = Calendar.getInstance();
@@ -406,16 +415,33 @@ public class ControllerImplementation implements IController, ActionListener
     {
         if (update != null)
         {
+            String telefono = update.getPhoneNumber().getText();
+            if (telefono == null || telefono.isBlank()
+                    || !telefono.matches("^\\+?[0-9 .()\\-]{7,20}$"))
+            {
+                JOptionPane.showMessageDialog(update,
+                        "Only digits, spaces, '+', '-', '.', and parentheses are allowed.\nExample: +34 912-34-56-78",
+                        update.getTitle(),
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Person p = new Person(update.getNam().getText(), update.getNif().getText());
+
+            p.setPhoneNumber(telefono);
+
             if ((update.getDateOfBirth().getModel().getValue()) != null)
             {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
+
             if ((ImageIcon) (update.getPhoto().getIcon()) != null)
             {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
+
             update(p);
+            JOptionPane.showMessageDialog(null, "Person updated successfully!", "Person Updated", JOptionPane.INFORMATION_MESSAGE);
             update.getReset().doClick();
         }
     }
@@ -436,21 +462,22 @@ public class ControllerImplementation implements IController, ActionListener
                 model.addRow(new Object[i]);
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
+                model.setValueAt(s.get(i).getPhoneNumber(), i, 2);
                 if (s.get(i).getDateOfBirth() != null)
                 {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 2);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
                 }
                 else
                 {
-                    model.setValueAt("", i, 2);
+                    model.setValueAt("", i, 3);
                 }
                 if (s.get(i).getPhoto() != null)
                 {
-                    model.setValueAt("yes", i, 3);
+                    model.setValueAt("yes", i, 4);
                 }
                 else
                 {
-                    model.setValueAt("no", i, 3);
+                    model.setValueAt("no", i, 4);
                 }
             }
             readAll.setVisible(true);

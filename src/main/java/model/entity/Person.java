@@ -23,6 +23,7 @@ public class Person implements Serializable
     @Id
     private String nif;
     private String name;
+    private String phoneNumber;
     private Date dateOfBirth;
     @Transient
     private ImageIcon photo;
@@ -69,10 +70,11 @@ public class Person implements Serializable
      * @param photo
      */
     
-    public Person(String name, String nif, Date dateOfBirth, ImageIcon photo)
+    public Person(String name, String nif, String phoneNumber, Date dateOfBirth, ImageIcon photo)
     {
         this.name = name;
         this.nif = nif;
+        this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -128,6 +130,16 @@ public class Person implements Serializable
         this.photoOnlyJPA = photoOnlyJPA;
     }
 
+    public String getPhoneNumber()
+    {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber)
+    {
+        this.phoneNumber = phoneNumber;
+    }
+    
     /**
      * Function used to compare two Personas. There cannot be two or more people
      * with the same ID. Actually it isn't used in this project.
@@ -169,7 +181,7 @@ public class Person implements Serializable
         final Person other = (Person) obj;
         return Objects.equals(this.hashCode(), other.hashCode());
     }
-
+    
     /**
      * Function sed to show person's inform by console. Only for debugging
      * pourposes.
@@ -180,7 +192,6 @@ public class Person implements Serializable
     @Override
     public String toString()
     {
-        return "Person {" + "Name = " + name + ", NIF = " + nif + ", DateOfBirth = " 
-                          + dateOfBirth + ", Photo = " + (photo != null) + "}";
+        return "Person {" + "Name =" + name + ", NIF =" + nif + ", phoneNumber=" + phoneNumber + ", dateOfBirth=" + dateOfBirth + ", photo=" + photo + ", photoOnlyJPA=" + photoOnlyJPA + '}';
     }
 }
