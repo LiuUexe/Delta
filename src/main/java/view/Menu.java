@@ -55,8 +55,7 @@ public class Menu extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         read = new javax.swing.JButton();
@@ -155,10 +154,8 @@ public class Menu extends javax.swing.JFrame {
         deleteAll.setMaximumSize(new java.awt.Dimension(120, 50));
         deleteAll.setMinimumSize(new java.awt.Dimension(120, 50));
         deleteAll.setPreferredSize(new java.awt.Dimension(120, 50));
-        deleteAll.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        deleteAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteAllActionPerformed(evt);
             }
         });
