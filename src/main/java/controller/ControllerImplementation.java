@@ -1,4 +1,3 @@
-
 package controller;
 
 import model.entity.Person;
@@ -54,6 +53,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Update update;
     private ReadAll readAll;
     private Count count;
+    private javax.swing.JTextField postalCode;
 
     public ControllerImplementation(DataStorageSelection dSS) {
         this.dSS = dSS;
@@ -100,12 +100,18 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case Constants.ARRAY_LIST -> dao = new DAOArrayList();
-            case Constants.HASH_MAP -> dao = new DAOHashMap();
-            case Constants.FILE -> setupFileStorage();
-            case Constants.FILE_SERIALIZATION -> setupFileSerialization();
-            case Constants.SQL_DATABASE -> setupSQLDatabase();
-            case Constants.JPA_DATABASE -> setupJPADatabase();
+            case Constants.ARRAY_LIST ->
+                dao = new DAOArrayList();
+            case Constants.HASH_MAP ->
+                dao = new DAOHashMap();
+            case Constants.FILE ->
+                setupFileStorage();
+            case Constants.FILE_SERIALIZATION ->
+                setupFileSerialization();
+            case Constants.SQL_DATABASE ->
+                setupSQLDatabase();
+            case Constants.JPA_DATABASE ->
+                setupJPADatabase();
         }
         setupMenu();
     }
@@ -201,6 +207,9 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getPhoneNumber().getText() != null) {
             p.setPhoneNumber(insert.getPhoneNumber().getText());
         }
+        if (insert.getPostalCode().getText() != null) {
+            p.setPostalCode(insert.getPostalCode().getText());
+        }
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
@@ -223,6 +232,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
             read.getPhoneNumber().setText(pNew.getPhoneNumber());
+            read.getPostalCode().setText(pNew.getPostalCode());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -275,10 +285,14 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getPhoneNumber().setEnabled(true);
+                update.getPostalCode().setEnabled(true);
+                
+
                 update.getUpdate().setEnabled(true);
 
                 update.getNam().setText(pNew.getName());
                 update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                update.getPostalCode().setText(pNew.getPostalCode());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -299,16 +313,27 @@ public class ControllerImplementation implements IController, ActionListener {
     private void handleUpdatePerson() {
         if (update != null) {
             String telefono = update.getPhoneNumber().getText();
-            if (telefono == null || telefono.isBlank() || !telefono.matches("^\\+?[0-9 .()\\-]{7,20}$"))
-            {
+            if (telefono == null || telefono.isBlank() || !telefono.matches("^\\+?[0-9 .()\\-]{7,20}$")) {
                 JOptionPane.showMessageDialog(update,
                         "Only digits, spaces, '+', '-', '.', and parentheses are allowed.\nExample: +34 912-34-56-78",
                         update.getTitle(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            String codigoPostal = update.getPostalCode().getText();
+            if (codigoPostal == null || codigoPostal.isBlank() || !codigoPostal.matches("^\\d{5}$")) {
+                JOptionPane.showMessageDialog(update,
+                        "Postal code must be 5 digits.\nExample: 08001",
+                        update.getTitle(), JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Person p = new Person(update.getNam().getText(), update.getNif().getText());
             p.setPhoneNumber(telefono);
+
+            if (update.getPostalCode().getText() != null) {
+                p.setPostalCode(update.getPostalCode().getText());
+            }
 
             if (update.getDateOfBirth().getModel().getValue() != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
@@ -335,15 +360,16 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getPhoneNumber(), i, 2);
+                model.setValueAt(s.get(i).getPostalCode(), i, 3);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 4);
                 } else {
-                    model.setValueAt("", i, 3);
+                    model.setValueAt("", i, 4);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 4);
+                    model.setValueAt("yes", i, 5);
                 } else {
-                    model.setValueAt("no", i, 4);
+                    model.setValueAt("no", i, 5);
                 }
             }
             readAll.setVisible(true);
@@ -439,9 +465,9 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleException(Exception ex, Object parent) {
-        if (ex instanceof FileNotFoundException || ex instanceof IOException ||
-            ex instanceof ParseException || ex instanceof ClassNotFoundException ||
-            ex instanceof SQLException || ex instanceof PersistenceException) {
+        if (ex instanceof FileNotFoundException || ex instanceof IOException
+                || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                || ex instanceof SQLException || ex instanceof PersistenceException) {
             JOptionPane.showMessageDialog(null, ex.getMessage() + " Closing application.", "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         } else if (ex instanceof PersonException) {

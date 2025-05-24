@@ -24,4 +24,8 @@ public class DataValidation
         };
         return nifNoLetter + letter[Integer.parseInt(nifNoLetter) % 23];
     }
+    
+    public static boolean isPostalCode(String postalCode) {
+        return postalCode.matches("^(\\d{5})(?:[-\\s]?\\d{4})?$");
+    }
 }

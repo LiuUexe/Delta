@@ -62,7 +62,7 @@ public class DAOFile implements IDAO
                 {
                     photo = new ImageIcon(data[3]);
                 }
-                personToRead = new Person(data[0], data[1], data[2], date, photo);
+                personToRead = new Person(data[0], data[1], data[2], data[3], date, photo);
                 break;
             }
             line = br.readLine();
@@ -95,7 +95,7 @@ public class DAOFile implements IDAO
             {
                 photo = new ImageIcon(data[3]);
             }
-            people.add(new Person(data[0], data[1], data[2], date, photo));
+            people.add(new Person(data[0], data[1], data[2], data[3], date, photo));
             line = br.readLine();
         }
         br.close();
