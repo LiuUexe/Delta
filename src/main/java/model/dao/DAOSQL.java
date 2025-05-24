@@ -100,15 +100,16 @@ public class DAOSQL implements IDAO
             String nif = rs.getString("nif");
             String name = rs.getString("name");
             String phoneNumber = rs.getString("phoneNumber");
+            String postalCode = rs.getString("postalCode");
             Date date = rs.getDate("dateOfBirth");
             String photo = rs.getString("photo");
             if (photo != null)
             {
-                people.add(new Person(nif, name, phoneNumber, date, new ImageIcon(photo)));
+                people.add(new Person(nif, name, phoneNumber, postalCode, date, new ImageIcon(photo)));
             }
             else
             {
-                people.add(new Person(nif, name, phoneNumber, date, null));
+                people.add(new Person(nif, name, phoneNumber, postalCode, date, null));
             }
         }
         rs.close();

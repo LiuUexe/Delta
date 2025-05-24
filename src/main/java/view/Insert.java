@@ -27,15 +27,14 @@ import org.jdatepicker.JDatePicker;
  * @author Francesc Perez
  * @version 1.1.0
  */
-public class Insert extends javax.swing.JDialog
-{
+public class Insert extends javax.swing.JDialog {
 
     private final String PLACEHOLDER_NIF = "Enter NIF number, letter is calculated (e.g., 12345678)";
     private final String PLACEHOLDER_NAME = "Enter full name";
     private final String PLACEHOLDER_PHONE_NUMBER = "Enter phone number";
+    private final String PLACEHOLDER_POSTAL_CODE = "Enter ZIP code (e.g., 12345 or 12345-6789)";
 
-    public Insert(java.awt.Frame parent, boolean modal)
-    {
+    public Insert(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         DropPhotoListener d = new DropPhotoListener(photo, this);
@@ -45,62 +44,59 @@ public class Insert extends javax.swing.JDialog
         nif.setText(PLACEHOLDER_NIF);
         name.setText(PLACEHOLDER_NAME);
         phoneNumber.setText(PLACEHOLDER_PHONE_NUMBER);
+        postalCode.setText(PLACEHOLDER_POSTAL_CODE);
         nif.setForeground(Color.gray);
         name.setForeground(Color.gray);
         phoneNumber.setForeground(Color.gray);
+        postalCode.setForeground(Color.gray);
 
         nif.setFocusable(false);
         name.setFocusable(false);
         phoneNumber.setFocusable(false);
+        postalCode.setFocusable(false);
 
-        javax.swing.SwingUtilities.invokeLater(() ->
-        {
-            try
-            {
+        javax.swing.SwingUtilities.invokeLater(()
+                -> {
+            try {
                 JButton datePickerButton = (JButton) ((JComponent) dateOfBirth).getComponent(1);
                 datePickerButton.setText("Select a date");
                 datePickerButton.setPreferredSize(null);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 System.err.println("Please Try Again.");
             }
         });
 
     }
 
-    public JButton getReset()
-    {
+    public JButton getReset() {
         return reset;
     }
 
-    public JButton getInsert()
-    {
+    public JButton getInsert() {
         return insert;
     }
 
-    public JTextField getNam()
-    {
+    public JTextField getNam() {
         return name;
     }
 
-    public JTextField getPhoneNumber()
-    {
+    public JTextField getPhoneNumber() {
         return phoneNumber;
     }
 
-    public JDatePicker getDateOfBirth()
-    {
+    public JTextField getPostalCode() {
+        return postalCode;
+    }
+
+    public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public JTextField getNif()
-    {
+    public JTextField getNif() {
         return nif;
     }
 
-    public JLabel getPhoto()
-    {
+    public JLabel getPhoto() {
         return photo;
     }
 
@@ -111,8 +107,7 @@ public class Insert extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         insert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -124,8 +119,10 @@ public class Insert extends javax.swing.JDialog
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
-        jLabPhoneNumber = new javax.swing.JLabel();
+        jLabPostalCode = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JTextField();
+        jLabPhoneNumber1 = new javax.swing.JLabel();
+        postalCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
@@ -136,10 +133,8 @@ public class Insert extends javax.swing.JDialog
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        insert.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertActionPerformed(evt);
             }
         });
@@ -153,32 +148,24 @@ public class Insert extends javax.swing.JDialog
         name.setMaximumSize(new java.awt.Dimension(400, 22));
         name.setMinimumSize(new java.awt.Dimension(400, 22));
         name.setPreferredSize(new java.awt.Dimension(400, 22));
-        name.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
+        name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 nameFocusGained(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
+            public void focusLost(java.awt.event.FocusEvent evt) {
                 nameFocusLost(evt);
             }
         });
-        name.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+        name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 nameMouseEntered(evt);
             }
         });
-        name.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 nameKeyTyped(evt);
             }
         });
@@ -189,10 +176,8 @@ public class Insert extends javax.swing.JDialog
         reset.setMaximumSize(new java.awt.Dimension(187, 33));
         reset.setMinimumSize(new java.awt.Dimension(187, 33));
         reset.setPreferredSize(new java.awt.Dimension(187, 33));
-        reset.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetActionPerformed(evt);
             }
         });
@@ -205,10 +190,8 @@ public class Insert extends javax.swing.JDialog
         photo.setMaximumSize(new java.awt.Dimension(150, 135));
         photo.setMinimumSize(new java.awt.Dimension(150, 135));
         photo.setPreferredSize(new java.awt.Dimension(150, 135));
-        photo.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        photo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 photoMouseClicked(evt);
             }
         });
@@ -222,43 +205,32 @@ public class Insert extends javax.swing.JDialog
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
+        nif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 nifFocusGained(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
+            public void focusLost(java.awt.event.FocusEvent evt) {
                 nifFocusLost(evt);
             }
         });
-        nif.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 nifMouseEntered(evt);
             }
         });
-        nif.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        nif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nifActionPerformed(evt);
             }
         });
-        nif.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
+        nif.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 nifKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 nifKeyTyped(evt);
             }
         });
@@ -278,42 +250,70 @@ public class Insert extends javax.swing.JDialog
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
 
-        jLabPhoneNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabPhoneNumber.setText("Phone Number");
-        jLabPhoneNumber.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabPhoneNumber.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabPhoneNumber.setPreferredSize(new java.awt.Dimension(100, 22));
+        jLabPostalCode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabPostalCode.setText("Postal Code");
+        jLabPostalCode.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabPostalCode.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabPostalCode.setPreferredSize(new java.awt.Dimension(100, 22));
 
         phoneNumber.setMaximumSize(new java.awt.Dimension(400, 22));
         phoneNumber.setMinimumSize(new java.awt.Dimension(400, 22));
         phoneNumber.setPreferredSize(new java.awt.Dimension(400, 22));
-        phoneNumber.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
+        phoneNumber.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 phoneNumberFocusGained(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
+            public void focusLost(java.awt.event.FocusEvent evt) {
                 phoneNumberFocusLost(evt);
             }
         });
-        phoneNumber.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+        phoneNumber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 phoneNumberMouseEntered(evt);
             }
         });
-        phoneNumber.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyReleased(java.awt.event.KeyEvent evt)
-            {
+        phoneNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phoneNumberActionPerformed(evt);
+            }
+        });
+        phoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
                 phoneNumberKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 phoneNumberKeyTyped(evt);
+            }
+        });
+
+        jLabPhoneNumber1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabPhoneNumber1.setText("Phone Number");
+        jLabPhoneNumber1.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabPhoneNumber1.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabPhoneNumber1.setPreferredSize(new java.awt.Dimension(100, 22));
+
+        postalCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        postalCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        postalCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        postalCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                postalCodeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                postalCodeFocusLost(evt);
+            }
+        });
+        postalCode.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                postalCodeMouseEntered(evt);
+            }
+        });
+        postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                postalCodeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                postalCodeKeyTyped(evt);
             }
         });
 
@@ -324,63 +324,73 @@ public class Insert extends javax.swing.JDialog
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(348, 348, 348)
-                        .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(24, 24, 24)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(24, 24, 24)
-                                    .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(nif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
         );
 
@@ -388,20 +398,17 @@ public class Insert extends javax.swing.JDialog
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showInsert()
-    {
+    private void showInsert() {
         boolean userTypedNif = !nif.getText().isEmpty() && !nif.getText().equals(PLACEHOLDER_NIF);
         boolean userTypedName = !name.getText().isEmpty() && !name.getText().equals(PLACEHOLDER_NAME);
         boolean userTypedPhone = !phoneNumber.getText().isEmpty() && !phoneNumber.getText().equals(PLACEHOLDER_PHONE_NUMBER);
-
-        if (userTypedNif && userTypedName && userTypedPhone)
-        {
+        boolean userTypedPostal = !postalCode.getText().isEmpty() && !postalCode.getText().equals(PLACEHOLDER_POSTAL_CODE);
+        if (userTypedNif && userTypedName && userTypedPhone && userTypedPostal) {
             insert.setEnabled(true);
-        }
-        else
-        {
+        } else {
             insert.setEnabled(false);
         }
+
     }
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
@@ -409,6 +416,7 @@ public class Insert extends javax.swing.JDialog
         nif.setText(PLACEHOLDER_NIF);
         name.setText(PLACEHOLDER_NAME);
         phoneNumber.setText(PLACEHOLDER_PHONE_NUMBER);
+        postalCode.setText(PLACEHOLDER_POSTAL_CODE);
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -425,21 +433,17 @@ public class Insert extends javax.swing.JDialog
     }//GEN-LAST:event_resetActionPerformed
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
-        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE)
-        {
+        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
         }
     }//GEN-LAST:event_nifKeyTyped
 
     private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
-        if (!isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE)
-        {
+        if (!isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
-        }
-        else if (isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE || evt.getKeyChar() == KeyEvent.VK_DELETE)
-        {
+        } else if (isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE || evt.getKeyChar() == KeyEvent.VK_DELETE) {
             showInsert();
         }
     }//GEN-LAST:event_nameKeyTyped
@@ -453,8 +457,7 @@ public class Insert extends javax.swing.JDialog
     }//GEN-LAST:event_photoMouseClicked
 
     private void nifKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyReleased
-        if (nif.getText().length() == 8)
-        {
+        if (nif.getText().length() == 8) {
             nif.setText(calculateNifLetter(nif.getText()));
             nif.setEditable(false);
             showInsert();
@@ -463,8 +466,7 @@ public class Insert extends javax.swing.JDialog
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
-        if (nif.getText().length() == 8)
-        {
+        if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
             nif.setEditable(false);
@@ -477,24 +479,21 @@ public class Insert extends javax.swing.JDialog
     }//GEN-LAST:event_nifActionPerformed
 
     private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
-        if (nif.getText().equals(PLACEHOLDER_NIF))
-        {
+        if (nif.getText().equals(PLACEHOLDER_NIF)) {
             nif.setText("");
             nif.setForeground(Color.gray);
         }
     }//GEN-LAST:event_nifFocusGained
 
     private void nifFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusLost
-        if (nif.getText().equals(""))
-        {
+        if (nif.getText().equals("")) {
             nif.setText(PLACEHOLDER_NIF);
             nif.setForeground(Color.gray);
         }
     }//GEN-LAST:event_nifFocusLost
 
     private void nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusGained
-        if (name.getText().equals(PLACEHOLDER_NAME))
-        {
+        if (name.getText().equals(PLACEHOLDER_NAME)) {
             name.setText("");
             name.setForeground(Color.gray);
         }
@@ -502,8 +501,7 @@ public class Insert extends javax.swing.JDialog
     }//GEN-LAST:event_nameFocusGained
 
     private void nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusLost
-        if (name.getText().equals(""))
-        {
+        if (name.getText().equals("")) {
             name.setText(PLACEHOLDER_NAME);
             name.setForeground(Color.gray);
         }
@@ -524,8 +522,7 @@ public class Insert extends javax.swing.JDialog
 
     private void phoneNumberFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_phoneNumberFocusGained
     {//GEN-HEADEREND:event_phoneNumberFocusGained
-        if (phoneNumber.getText().equals(PLACEHOLDER_PHONE_NUMBER))
-        {
+        if (phoneNumber.getText().equals(PLACEHOLDER_PHONE_NUMBER)) {
             phoneNumber.setText("");
             phoneNumber.setForeground(Color.gray);
         }
@@ -533,8 +530,7 @@ public class Insert extends javax.swing.JDialog
 
     private void phoneNumberFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_phoneNumberFocusLost
     {//GEN-HEADEREND:event_phoneNumberFocusLost
-        if (phoneNumber.getText().equals(""))
-        {
+        if (phoneNumber.getText().equals("")) {
             phoneNumber.setText(PLACEHOLDER_PHONE_NUMBER);
             phoneNumber.setForeground(Color.gray);
         }
@@ -556,24 +552,66 @@ public class Insert extends javax.swing.JDialog
         int pos = phoneNumber.getCaretPosition();
 
         if (!Character.isDigit(c)
-            && c != KeyEvent.VK_BACK_SPACE
-            && c != KeyEvent.VK_DELETE
-            && c != ' '
-            && c != '-'
-            && c != '.'
-            && c != '('
-            && c != ')'
-            && !(c == '+' && pos == 0)) // solo permitir '+' si es el primer carácter
+                && c != KeyEvent.VK_BACK_SPACE
+                && c != KeyEvent.VK_DELETE
+                && c != ' '
+                && c != '-'
+                && c != '.'
+                && c != '('
+                && c != ')'
+                && !(c == '+' && pos == 0)) // solo permitir '+' si es el primer carácter
         {
             JOptionPane.showMessageDialog(this, "Only digits, spaces, '+', '-', '.', and parentheses are allowed.\nExample: +34 912-34-56-78", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
         }
     }//GEN-LAST:event_phoneNumberKeyTyped
 
+    private void postalCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusGained
+        if (postalCode.getText().equals(PLACEHOLDER_POSTAL_CODE)) {
+            postalCode.setText("");
+            postalCode.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_postalCodeFocusGained
+
+    private void postalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_postalCodeFocusLost
+        if (postalCode.getText().equals("")) {
+            postalCode.setText(PLACEHOLDER_POSTAL_CODE);
+            postalCode.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_postalCodeFocusLost
+
+    private void postalCodeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_postalCodeMouseEntered
+        postalCode.setFocusable(true);
+    }//GEN-LAST:event_postalCodeMouseEntered
+
+    private void postalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyReleased
+        showInsert();
+    }//GEN-LAST:event_postalCodeKeyReleased
+
+    private void postalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyTyped
+        char c = evt.getKeyChar();
+
+        // Permitir solo dígitos
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Postal code must contain only digits (5 numbers). Example: 08001", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        }
+
+        // Limitar a 5 caracteres
+        if (postalCode.getText().length() >= 5 && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_postalCodeKeyTyped
+
+    private void phoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneNumberActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JButton insert;
-    private javax.swing.JLabel jLabPhoneNumber;
+    private javax.swing.JLabel jLabPhoneNumber1;
+    private javax.swing.JLabel jLabPostalCode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -582,6 +620,7 @@ public class Insert extends javax.swing.JDialog
     private javax.swing.JTextField nif;
     private javax.swing.JTextField phoneNumber;
     private javax.swing.JLabel photo;
+    private javax.swing.JTextField postalCode;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
 }
